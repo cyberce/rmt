@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/twitter4j-core-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/visural-common-0.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/restfb-1.6.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gglgeo_v0.02a.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

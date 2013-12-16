@@ -1,0 +1,200 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/zul/templates/main_template.zul"?>
+<?page viewport="width=device-width, initial-scale=0.5, user-scalable=yes"?>
+<?page title="${labels.template.title}"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/logo.png"?>
+<?link rel="icon" type="image/x-icon" href="/img/logo.png"?>
+<window xmlns="http://www.zkoss.org/2005/zul"
+        id="accommodationViewSearchWin"
+        self="@define(detail)"
+        border="none"
+        width="1200px"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('org.teiath.web.vm.rmt.ViewAccommodationSearchVM')">
+
+	<style>
+		tr.z-row-over > td.z-row-inner {
+		border-bottom: 1px dotted #434E9E;
+		border-top: 1px dotted #434E9E;
+		}
+
+		tr.z-row-over > td.z-row-inner, tr.z-row-over > .z-cell {
+		background-image: none;
+		}
+	</style>
+	<div sclass="detail">
+		<div align="left" width="95%">
+			<hbox width="100%" widths="50%, 50%">
+				<label sclass="headerText" value="${labels.roommate.home.view}" />
+				<div width="100%" style="text-align: right">
+					<toolbarbutton image="/img/back.png" onClick="@command('onBack')" />
+				</div>
+			</hbox>
+			<tabbox id="tb">
+				<tabs id="tabs">
+					<tab id="A" label="Στέγη" />
+					<tab id="B" label="Συγκάτοικος" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<separator height="20px" />
+						<grid style="border: 0">
+							<columns>
+								<column width="20%" />
+								<column width="30%" />
+								<column width="20%" />
+								<column width="30%" />
+							</columns>
+							<rows>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roοmmates.home.address}:" />
+									<label value="@load(vm.accommodation.address)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.type}:" />
+									<label value="@load(vm.accommodation.accommodationType.name)"
+									       sclass="labelNSBlackNormal" width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.floor}:" />
+									<label value="@load(vm.accommodation.floor)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.squaremeters}:" />
+									<label value="@load(vm.accommodation.squareMeters)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.roomsNumber}:" />
+									<label value="@load(vm.accommodation.numberOfBedrooms)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.heatType}:" />
+									<label id="flexibleLabel" value="@load(vm.accommodation.heatingType)"
+									       sclass="labelNSBlackNormal" width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.constructionYear}:" />
+									<label value="@load(vm.accommodation.constructionYear)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.contributionAmmount}:" />
+									<label value="@load(vm.accommodation.askedAmount)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.smokingAllowed}:" />
+									<label id="smokingAllowedLabel" value="${labels.common.no}"
+									       sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.petsAllowed}:" />
+									<label id="petsAllowedLabel" value="${labels.common.no}" sclass="labelNSBlackNormal"
+									       width="90%" />
+
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.existingKitchen}:" />
+									<label id="existingKitchenLabel" value="${labels.common.no}"
+									       sclass="labelNSBlackNormal"
+									       width="90%" />
+
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.misc}:" />
+									<grid model="@load(vm.accommodation.attributes)" oddRowSclass="none"
+									      style="border: 0">
+										<columns>
+											<column />
+										</columns>
+										<template name="model" var="item">
+											<row>
+												<label sclass="labelNSBlackNormal" width="90%"
+												       value="@load(item.name)" />
+											</row>
+										</template>
+									</grid>
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.home.comments}:" />
+									<vbox>
+										<hbox>
+											<label width="100%" sclass="labelNSGrayNormal"
+											       value="@load(item.comment)" />
+										</hbox>
+									</vbox>
+								</row>
+							</rows>
+						</grid>
+						<separator height="20px" />
+						<panel border="normal">
+							<panelchildren id="panelChildren" style="overflow:auto;">
+								<vbox id="photoVBox">
+
+								</vbox>
+							</panelchildren>
+						</panel>
+					</tabpanel>
+					<tabpanel>
+						<separator height="20px" />
+						<grid style="border: 0">
+							<columns>
+								<column width="20%" />
+								<column width="30%" />
+								<column width="20%" />
+								<column width="30%" />
+							</columns>
+							<rows>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal" value="${labels.roommates.photo}:" />
+									<image id="userPhoto" height="128px" width="128px" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.firstName}:" />
+									<label value="@load(vm.accommodation.user.firstName)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal"
+									       value="${labels.roommates.lastName}:" />
+									<label value="@load(vm.accommodation.user.lastName)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal" value="${labels.roommates.email}:" />
+									<label value="@load(vm.accommodation.user.email)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+								<row spans="1, 3" sclass="viewRow">
+									<label width="100%" sclass="labelNSGrayNormal" value="${labels.roommates.phone}:" />
+									<label value="@load(vm.accommodation.user.phoneNumber)" sclass="labelNSBlackNormal"
+									       width="90%" />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</div>
+	</div>
+
+</window>

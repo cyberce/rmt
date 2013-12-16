@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jts_1.13">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/jts-1.13" />
+      <root url="file://$PROJECT_DIR$/lib/jts-1.13" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jts-1.13" recursive="false" />
+  </library>
+</component>

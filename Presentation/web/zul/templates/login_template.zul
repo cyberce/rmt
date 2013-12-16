@@ -1,0 +1,57 @@
+<?page viewport="width=device-width, initial-scale=0.5, user-scalable=yes"?>
+<?page title="${labels.template.title}"?>
+<window xmlns="http://www.zkoss.org/2005/zul"
+        border="none" width="100%"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('org.teiath.web.vm.templates.LoginTemplateVM')">
+
+	<div sclass="root" style="margin-top: 20px ;margin-bottom: 20px;">
+		<div sclass="header">
+			<div sclass="headerimg">
+				<div sclass="carimg"></div>
+			</div>
+
+		</div>
+		<div sclass="subheader-bar-container">
+			<div sclass="subheader">
+				<hbox style="margin-top: 8px;">
+					<menubar sclass="menubar" id="menubar">
+						<menuitem image="/img/home.png"
+						          onClick="@command('home')" />
+					</menubar>
+					<label id="loggedUserLabel" sclass="loggedUser" style="color:white;" value="@load(vm.user.fullName)"
+					       visible="false" />
+				</hbox>
+			</div>
+		</div>
+		<separator height="20px" />
+		<vbox>
+			<hbox self="@insert(detail)" />
+		</vbox>
+		<separator height="20px" />
+		<div sclass="footer-bar-container">
+			<div sclass="footer-bar">
+				<div style="padding-left: 10px; padding-top: 25px;">
+					<a onClick="@command('api')" label="API" style="Font-family: Segoe UI; Font-size: 11pt; color: rgba(255, 255, 255, 1.0);"/>
+					<space width="1090px"/>
+					<a href="https://www.facebook.com/pages/%CE%95%CE%BE%CF%89%CF%83%CF%84%CF%81%CE%B5%CF%86%CE%B5%CE%AF%CF%82-%CE%A5%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%AF%CE%B5%CF%82-%CE%A4%CE%95%CE%99-%CE%91%CE%B8%CE%AE%CE%BD%CE%B1%CF%82/373423529440729" image="/img/fb_small.png" />
+					<a href="https://plus.google.com/b/101419861265486807423/101419861265486807423/posts" image="/img/google_small.png" />
+				</div>
+			</div>
+		</div>
+		<div sclass="footer-container">
+			<hbox sclass="footer-container table td">
+				<image src="/img/footer_ek_ktp_images.jpg" />
+				<vbox>
+					<div sclass="funds">
+						<label value="${labels.template.funds}" />
+					</div>
+					<div sclass="copyright">
+						<label value="${labels.template.copyrights}" />
+					</div>
+				</vbox>
+				<a href="http://www.cyberce.gr" label="Powered by Cyberce S.A" />
+			</hbox>
+		</div>
+	</div>
+</window>

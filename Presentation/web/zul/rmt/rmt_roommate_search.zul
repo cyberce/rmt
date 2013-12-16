@@ -1,0 +1,172 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/zul/templates/main_template.zul"?>
+<?page viewport="width=device-width, initial-scale=0.5, user-scalable=yes"?>
+<?page title="${labels.template.title}"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/logo.png"?>
+<?link rel="icon" type="image/x-icon" href="/img/logo.png"?>
+<window xmlns="http://www.zkoss.org/2005/zul"
+        self="@define(detail)"
+        border="none"
+        width="1200px"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('org.teiath.web.vm.rmt.SearchRoommateVM')">
+
+	<zscript><![CDATA[
+
+      import java.util.Comparator;
+      import org.teiath.web.comparator.ListboxEmptyComparator;
+
+      Comparator comparator = new ListboxEmptyComparator();
+  ]]></zscript>
+
+	<div sclass="detail">
+		<div align="left" width="95%">
+			<hbox width="100%" widths="5%, 95%">
+				<label sclass="headerText" value="${labels.roommates.search}" />
+			</hbox>
+			<separator height="10px" />
+			<groupbox form="@id('fx') @save(vm.accommodationSearchCriteria, before='onSearch')" id="gb3" mold="3d"
+			          width="100%" open="true">
+				<attribute name="onOpen">
+					<![CDATA[
+                      import org.zkoss.util.resource.Labels;
+
+                      searchHeader.value = self.isOpen()? Labels.getLabel("search.title_hide") : Labels.getLabel("search.title_show");
+                      searchCaption.label = self.isOpen()? Labels.getLabel("search.criteria") : Labels.getLabel("search.click_here");
+                  ]]>
+				</attribute>
+				<caption id="searchCaption" label="${labels.search.hide}"></caption>
+				<separator height="10px" />
+				<hbox width="100%" widths="20%,30%,35%,35%,25%">
+					<div>
+						<label sclass="labelNSGrayNormal" value="${labels.roommates.home.type}" />
+						<separator height="3px" />
+						<div>
+							<listbox model="@load(vm.accommodationType)"
+							         selectedItem="@bind(vm.selectedAccommodationType)" mold="select" rows="1"
+							         width="95%" tabindex="2">
+								<template name="model" var="item">
+									<listitem>
+										<listcell label="@load(item.name)" />
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+						<separator height="10px" />
+						<label sclass="labelNSGrayNormal" value="${labels.roommates.home.floor}" />
+						<separator height="3px" />
+						<div>
+							<combobox readonly="true" id="floorCombo" value="@bind(fx.floor)">
+								<comboitem label="" />
+								<comboitem label="0" />
+								<comboitem label="1" />
+								<comboitem label="2" />
+								<comboitem label="3" />
+								<comboitem label="4" />
+								<comboitem label="5" />
+							</combobox>
+						</div>
+					</div>
+
+					<div>
+						<label sclass="labelNSGrayNormal" value="${labels.roommates.home.maxContributionAmmount}" />
+						<separator height="3px" />
+						<div>
+							<intbox id="contributionAmountIntbox" value="@bind(fx.maxAmount)"
+							        format=",###.##" constraint="no negative" />
+						</div>
+
+					</div>
+
+					<div>
+						<hbox>
+							<label sclass="labelNSGrayNormal" value="${labels.roommates.home.smokingAllowed}:" />
+							<separator height="3px" />
+							<div>
+
+								<radiogroup width="100%" id="smokingAllowedRG"
+								            selectedItem="@bind(fx.smokingAllowed) @converter('org.teiath.web.converter.RadiogroupIntegerConverter')">
+									<radio value="1" label="${labels.common.yes}" radiogroup="smokingAllowedRG"
+									       tabindex="1" />
+									<radio value="0" label="${labels.common.no}" radiogroup="smokingAllowedRG"
+									       tabindex="2" />
+								</radiogroup>
+							</div>
+						</hbox>
+						<separator height="10px" />
+						<hbox>
+							<label sclass="labelNSGrayNormal" value="${labels.roommates.home.petsAllowed}:" />
+							<separator height="3px" />
+							<hbox>
+
+								<radiogroup width="100%" id="petsAllowedRG"
+								            selectedItem="@bind(fx.petsAllowed) @converter('org.teiath.web.converter.RadiogroupIntegerConverter')">
+									<radio value="1" label="${labels.common.yes}" radiogroup="petsAllowedRG"
+									       tabindex="3" />
+									<radio value="0" label="${labels.common.no}" radiogroup="petsAllowedRG"
+									       tabindex="4" />
+								</radiogroup>
+							</hbox>
+						</hbox>
+
+					</div>
+				</hbox>
+				<separator height="10px" />
+				<hbox width="100%" widths="40%,50%,10%">
+					<div></div>
+					<div>
+						<toolbarbutton label="${labels.search.search}" image="/img/search.png"
+						               onClick="@command('onSearch')" />
+						<space width="20px" />
+						<toolbarbutton label="${labels.search.restore}" image="/img/restore.png"
+						               onClick="@command('onResetSearch')" />
+					</div>
+					<div></div>
+				</hbox>
+			</groupbox>
+			<separator height="30px" />
+			<div align="right" id="toolbar" visible="false">
+				<hbox>
+					<toolbarbutton id="viewButton" image="/img/view.png" onClick="@command('onView')"
+					               disabled="@load(empty vm.selectedAccommodation)" />
+				</hbox>
+			</div>
+		</div>
+		<div>
+			<listbox model="@load(vm.accommodationList)" paginal="@{paging}"
+			         selectedItem="@bind(vm.selectedAccommodation)"
+			         id="accommodationListbox" width="95%" context="contextPopup" visible="false">
+				<listhead>
+					<listheader id="address" label="${labels.roοmmates.home.address}" width="40%"
+					            sortAscending="${comparator}"
+					            sortDescending="${comparator}" onSort="@command('onSort')" />
+					<listheader id="accommodationType" label="${labels.roommates.home.type}" width="30%"
+					            sortAscending="${comparator}"
+					            sortDescending="${comparator}" onSort="@command('onSort')" />
+					<listheader id="askedAmount" label="${labels.roommates.home.contributionAmmount}" width="40%"
+					            sortAscending="${comparator}" sortDescending="${comparator}"
+					            onSort="@command('onSort')" />
+					<listheader id="squareMeters" label="${labels.roommates.home.squaremeters}" width="40%"
+					            sortAscending="${comparator}" sortDescending="${comparator}"
+					            onSort="@command('onSort')" />
+					<listheader id="floor" label="${labels.roommates.home.floor}" width="25%"
+					            sortAscending="${comparator}" sortDescending="${comparator}"
+					            onSort="@command('onSort')" />
+				</listhead>
+
+				<template name="model" var="item">
+					<listitem>
+						<listcell label="@load(item.address)" />
+						<listcell label="@load(item.accommodationType.name)" />
+						<listcell label="@load(item.askedAmount)" />
+						<listcell label="@load(item.squareMeters)" />
+						<listcell label="@load(item.floor)" />
+					</listitem>
+				</template>
+
+			</listbox>
+			<paging id="paging" pageSize="10" detailed="true" onPaging="@command('onPaging')" visible="false"
+			        width="95%" />
+		</div>
+	</div>
+</window>

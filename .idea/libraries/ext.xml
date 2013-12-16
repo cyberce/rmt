@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ext">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/zk-6.5.2/ext/commons-fileupload.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/zk-6.5.2/ext/bsh.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/zk-6.5.2/ext/commons-io.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

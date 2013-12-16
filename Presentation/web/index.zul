@@ -1,0 +1,92 @@
+<?page viewport="width=device-width, initial-scale=0.5, user-scalable=yes"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/zul/templates/login_template.zul"?>
+<?page title="${labels.template.title}"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/logo.png"?>
+<?link rel="icon" type="image/x-icon" href="/img/logo.png"?>
+<window xmlns="http://www.zkoss.org/2005/zul"
+        self="@define(detail)"
+        border="none"
+        width="1200px"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('org.teiath.web.vm.IndexVM')">
+
+	<zscript><![CDATA[
+
+      import java.util.Comparator;
+      import org.teiath.web.comparator.ListboxEmptyComparator;
+
+      Comparator comparator = new ListboxEmptyComparator();
+  ]]></zscript>
+
+	<div sclass="detail">
+		<div align="left" width="95%">
+			<separator height="15px" />
+			<label sclass="headerText" value="${labels.common.messages.services}" />
+			<separator height="25px" />
+			<borderlayout height="450px">
+				<center border="0">
+					<borderlayout>
+						<west id="west" maxsize="200" size="70%" vflex="true">
+							<hlayout>
+								<separator height="5px" />
+								<label sclass="textLabel"
+								       value="Καλώς ήλθατε στην ιστοσελίδα των Εξωστρεφών Υπηρεσιών του ΤΕΙ Αθήνας. Σας ευχόμαστε ευχάριστη πλοήγηση." />
+							</hlayout>
+						</west>
+						<center border="0">
+						</center>
+						<east id="east" size="25%" vflex="true">
+							<vlayout>
+								<separator height="5px" />
+								<label id="ssoLogin" onClick="@command('onSSOLogin')"
+								       onMouseOver='self.setSclass("secondaryTextLabelActive")'
+								       onMouseOut='self.setSclass("linkTextLabel")'
+								       value="Αν διαθέτετε λογαριασμό δικτυακών υπηρεσιών του ΤΕΙ Αθήνας συνδεθείτε εδώ." sclass="linkTextLabel" />
+								<separator height="20px" />
+								<groupbox id="gb4" mold="3d" width="100%" open="false">
+									<attribute name="onOpen">
+									</attribute>
+									<caption id="searchCaption" label="Για σύνδεση εξωτερικού χρήστη πατήστε εδώ">
+									</caption>
+									<vbox>
+										<label id="username" width="100%" sclass="labelNSBlueBold"
+										       value="${labels.user.username}" />
+										<textbox tabindex="1" mold="rounded" value="@bind(vm.username)" />
+										<separator height="10px" />
+										<label id="password" width="100%" sclass="labelNSBlueBold"
+										       value="${labels.user.password}" onOK="@command('onLogin')" />
+										<textbox type="password" tabindex="2" mold="rounded"
+										         value="@bind(vm.password)" onOK="@command('onLogin')" />
+										<separator height="10px" />
+										<div align="center">
+											<toolbarbutton image="/img/login.png" onClick="@command('onLogin')"
+											               autodisable="self" />
+										</div>
+									</vbox>
+								</groupbox>
+								<separator height="50px" />
+								<label onClick="@command('iForgot')"
+								       onMouseOver='self.setSclass("tos-label-active")'
+								       onMouseOut='self.setSclass("labelNSGrayNormal")'
+								       value="Ξέχασατε τον κωδικό πρόσβασης;" sclass="labelNSGrayNormal" />
+								<separator height="5px" />
+								<vbox>
+									<label sclass="secondaryTextLabel"
+									       value="Αν δε διαθέτετε λογαρισμό δικτυακών υπηρεσιών του ΤΕΙ Αθήνας μπορείτε να εγγραφείτε στον παρακάτω σύνδεσμο:" />
+									<separator height="10px" />
+									<div align="center">
+										<toolbarbutton label="${labels.user.register}" onClick="@command('onRegister')"
+										               onOK="@command('onLogin')" autodisable="self" />
+									</div>
+								</vbox>
+							</vlayout>
+
+						</east>
+					</borderlayout>
+				</center>
+			</borderlayout>
+			<separator height="15px" />
+		</div>
+	</div>
+</window>

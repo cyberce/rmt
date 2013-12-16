@@ -1,0 +1,14 @@
+<window id="imageViewWin"
+        border="normal"
+        mode="modal"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('org.teiath.web.vm.rmt.ImageViewVM')">
+
+	<div align="center" width="100%">
+		<toolbarbutton image="/img/cancel20.png" onClick="@command('onCancel')" />
+	</div>
+	<div align="center" width="100%">
+		<image id="imageView" />
+	</div>
+
+</window>
